@@ -59,9 +59,10 @@ class EventBuffer {
         events.map((e) => e.toPayload()).toList();
     final eventIds = events.map((e) => e.id).toList();
 
-    debugPrint('Uploading events...');
+    debugPrint('Uploading events...: ${payload.length}');
     debugPrint(payload.toString());
     final status = await client.post(payload);
+    debugPrint('status: ${status}');
     switch (status) {
       case 200:
         await _deleteEvents(eventIds);
