@@ -37,7 +37,7 @@ class Client {
         'checksum': md5
       });
 
-      debugPrint('response: ${response}');
+      debugPrint('response: ${response.body}');
       return response.statusCode;
     } catch (e) {
       return 500;
