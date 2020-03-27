@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart' as crypto;
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import 'time_utils.dart';
@@ -35,6 +36,8 @@ class Client {
         'upload_time': uploadTime,
         'checksum': md5
       });
+
+      debugPrint('response: ${response}');
       return response.statusCode;
     } catch (e) {
       return 500;
