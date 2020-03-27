@@ -59,16 +59,20 @@ class EventBuffer {
         events.map((e) => e.toPayload()).toList();
     final eventIds = events.map((e) => e.id).toList();
 
-    debugPrint('Uploading events...: ${payload.length}');
-    debugPrint(payload.toString());
+    debugPrint('Uploading ${payload.length} events...');
+    // debugPrint(payload.toString());
     final status = await client.post(payload);
-    debugPrint('status: ${status}');
+    debugPrint('http status: $status');
     switch (status) {
       case 200:
         await _deleteEvents(eventIds);
         break;
       case 413:
         await _handlePayloadTooLarge(eventIds);
+        break;
+      case 400:
+        debugPrint('got a 400, deleting the events');
+        await _deleteEvents(eventIds);
         break;
       default:
       // error
